@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obziron</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+        <h1>⚔️ OBZIRON PvP</h1>
+        <p>Modern PvP • Skill • Strategy</p>
+    </div>
+
+</div>
+
+<!-- ================= YOUTUBE ================= -->
+<div class="section">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+
+        <h2 class="heading">🎥 YouTube</h2>
+
+        <p class="description big">
+            I started as a 1.8 PvP player and evolved into modern combat styles.
+            Now I focus on Mace PvP, Cart PvP, UHC, and Axe PvP.
+            <br><br>
+            This channel is all about intense gameplay, clutch moments,
+            and high-level PvP mechanics.
+        </p>
+
+        <iframe 
+            src="https://www.youtube.com/embed/Q7g2Zjo0OMU"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+</div>
+
+<!-- ================= GAMEPLAY ================= -->
+<div class="section">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+
+        <h2 class="heading">🎮 Gameplay Highlights</h2>
+
+        <div class="alt-block">
+            <p class="description">
+                Fast-paced PvP fights where timing and precision decide everything.
+            </p>
+            <img src="{{ url_for('static', filename='images/game1.png') }}">
+        </div>
+
+        <div class="alt-block">
+            <p class="description">
+                Clutch moments in intense battles — where one move changes the outcome.
+            </p>
+            <img src="{{ url_for('static', filename='images/game2.png') }}">
+        </div>
+
+        <div class="alt-block">
+            <p class="description">
+                Strategic gameplay using modern PvP techniques.
+            </p>
+            <img src="{{ url_for('static', filename='images/game3.png') }}">
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= INSTAGRAM ================= -->
+<div class="section">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+
+        <h2 class="heading">📸 Instagram</h2>
+
+        <div class="alt-block">
+            <p class="description">
+                Anime edits from One Piece, Naruto, and Demon Slayer.
+            </p>
+            <img src="{{ url_for('static', filename='images/anime1.png') }}">
+        </div>
+
+        <div class="alt-block">
+            <p class="description">
+                Clean visuals capturing iconic anime moments.
+            </p>
+            <img src="{{ url_for('static', filename='images/anime2.png') }}">
+        </div>
+
+        <div class="alt-block">
+            <p class="description">
+                Edits and aesthetic anime scenes.
+            </p>
+            <img src="{{ url_for('static', filename='images/anime3.png') }}">
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= TWITTER ================= -->
+<div class="section">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+
+        <h2 class="heading">🐦 Twitter</h2>
+
+        <div class="alt-block">
+            <p class="description">
+                Minecraft PvP clips and highlights.
+            </p>
+            <img src="{{ url_for('static', filename='images/mc1.png') }}">
+        </div>
+
+        <div class="alt-block">
+            <p class="description">
+                Updates and casual content.
+            </p>
+            <img src="{{ url_for('static', filename='images/mc2.png') }}">
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= COMMENTS ================= -->
+<div class="section">
+
+    <canvas class="particles-bg"></canvas>
+
+    <div class="content">
+
+        <h2 class="heading">💬 Suggestions & Feedback</h2>
+
+        <form action="/comment" method="post">
+            <input name="name" placeholder="Your name">
+            <textarea name="comment" placeholder="Write something..."></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        {% for name, text in comments %}
+            <div class="comment">
+                <b>{{name}}</b><br>{{text}}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- ================= PARTICLES SCRIPT ================= -->
+<script>
+const canvases = document.querySelectorAll(".particles-bg");
+
+canvases.forEach(canvas => {
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    let particles = [];
+    let hue = Math.random() * 360;
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+            ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
+            ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
+            ctx.shadowBlur = 12;
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        hue += 0.08;  // 🔥 ~15 SECOND COLOR SHIFT
+
+        requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+});
+</script>
+
+</body>
+</html>
+
+
+

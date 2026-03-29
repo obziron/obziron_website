@@ -1,0 +1,211 @@
+/* ================= BODY ================= */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #050505, #0a0a1a);
+    color: white;
+}
+
+/* ================= HERO ================= */
+.hero {
+    height: 100vh;
+    background: url("/static/images/banner.jpg") center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-shadow: 0 0 20px black;
+}
+
+.hero h1 {
+    font-size: 80px;
+    color: #0037ff;
+    text-shadow: 0 0 20px #ff00d9;
+}
+
+.hero p {
+    font-size: 24px;
+    color: #cccccc;
+}
+
+/* ================= SECTIONS ================= */
+.section {
+    max-width: 1300px;   /* 🔥 was ~900 → now much wider */
+    margin: 60px auto;
+    padding: 50px;
+
+    background: rgba(255,255,255,0.04);
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+}
+
+/* ================= HEADINGS ================= */
+.heading {
+    font-size: 40px;
+    text-align: center;
+
+    background: linear-gradient(90deg, #00d4ff, #00ff88);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    /* 🔥 REDUCED GLOW (sharp look) */
+    text-shadow: 
+        0 0 5px rgba(0, 212, 255, 0.6),
+        0 0 10px rgba(0, 255, 136, 0.4);
+
+    animation: glowShift 8s linear infinite;
+}
+
+/* ================= DESCRIPTION ================= */
+.description {
+    font-size: 18px;
+    text-align: center;
+    color: #cccccc;
+
+    text-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+
+/* ================= ALT BLOCK ================= */
+.alt-block {
+    margin: 30px 0;
+    text-align: center;
+}
+
+/* ================= IMAGES ================= */
+.alt-block img {
+    width: 500px;   /* 🔥 bigger */
+    max-width: 90%;
+    border-radius: 15px;
+    margin-top: 15px;
+
+    transition: 0.3s;
+}
+
+.alt-block img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #00ffa2;
+}
+
+/* ================= YOUTUBE ================= */
+iframe {
+    display: block;
+    margin: 40px auto;
+    width: 800px;     /* 🔥 bigger */
+    height: 450px;
+    max-width: 95%;
+    border-radius: 15px;
+
+    box-shadow: 0 0 25px #00d4ff;
+}
+
+/* ================= FORM ================= */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;   /* 👉 centers form */
+}
+
+input, textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #111;
+    color: white;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #00d4ff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #00cc00;
+    transform: scale(1.05);
+}
+
+/* ================= COMMENTS ================= */
+.comment {
+    background: rgba(255,255,255,0.05);
+    margin: 10px auto;
+    padding: 10px;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+/* ================= ANIMATION ================= */
+.section {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes glowShift {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+body::before, body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(#00d4ff, transparent);
+    opacity: 0.4;
+}
+
+body::before {
+    left: 0;
+}
+
+body::after {
+    right: 0;
+}
+/* PARTICLES CANVAS */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: -1;   /* behind everything */
+}
+/* Section setup */
+.section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Particle canvas inside section */
+.particles-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+}
+
+/* Content ABOVE particles */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
