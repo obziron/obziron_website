@@ -208,4 +208,15 @@ body::after {
     position: relative;
     z-index: 1;
 }
+/* Extra platform colors */
+.twitch { background: #9146ff; }
+.github { background: #333; }
+.reddit { background: #ff4500; }
+.spotify { background: #1db954; }
+
+/* Improve hover glow per platform */
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px currentColor;
+}
 
