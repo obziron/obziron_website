@@ -1,13 +1,20 @@
 from flask import Flask, render_template, request, redirect
+import os
 
 app = Flask(__name__)
 
+# 🔐 Secret key (safe for now, can move to env later)
+app.secret_key = os.environ.get("SECRET_KEY", "defaultsecret")
+
+# 💬 Store comments (temporary storage)
 comments = []
 
+# ================= HOME =================
 @app.route("/")
 def home():
     return render_template("index.html", comments=comments)
 
+# ================= ADD COMMENT =================
 @app.route("/comment", methods=["POST"])
 def comment():
     name = request.form.get("name")
@@ -18,6 +25,7 @@ def comment():
 
     return redirect("/")
 
+# ================= RUN LOCAL =================
 if __name__ == "__main__":
     app.run(debug=True)
 
