@@ -208,15 +208,29 @@ body::after {
     position: relative;
     z-index: 1;
 }
-/* Extra platform colors */
+/* Platform colors */
+.yt { background: #ff0000; }        
+.insta { background: #ff4da6; }     
+.discord { background: #2f3136; }   
+.twitter { background: #1da1f2; }   
 .twitch { background: #9146ff; }
 .github { background: #333; }
 .reddit { background: #ff4500; }
 .spotify { background: #1db954; }
 
 /* Improve hover glow per platform */
-.btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px currentColor;
+.btn {
+    padding: 14px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+
+    font-size: 18px;        /* 🔥 bigger text */
+    font-weight: 700;       /* 🔥 bold */
+
+    letter-spacing: 0.5px;  /* smoother look */
+
+    transition: 0.3s;
+}
 }
 
