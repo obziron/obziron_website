@@ -24,4 +24,7 @@ def comment():
         comments.append((name, text))
 
     return redirect("/")
-
+    
+@app.route("/.well-known/discord")
+def discord_verification():
+    return "dh=4118046e803b45e48f76fd838fe6b8bb8c9162ec"
