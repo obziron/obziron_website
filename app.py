@@ -26,5 +26,8 @@ def comment():
     return redirect("/")
     
 @app.route("/.well-known/discord")
-def discord_verification():
-    return "dh=4118046e803b45e48f76fd838fe6b8bb8c9162ec"
+def discord_verify():
+    return "dh=4118046e803b45e48f76fd838fe6b8bb8c9162ec", 200, {'Content-Type': 'text/plain'}
+
+if __name__ == "__main__":
+    app.run()
