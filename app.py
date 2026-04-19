@@ -36,10 +36,7 @@ if __name__ == "__main__":
 
     app.run(debug=True)
 
-<<<<<<< HEAD
+
     
     
 
-=======
-print("App is starting...")
->>>>>>> 9d20a4d (saving changes before pull)
