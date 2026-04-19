@@ -31,11 +31,11 @@ def discord_verify():
 
 # ================= RUN LOCAL =================
 if __name__ == "__main__":
-<<<<<<< HEAD
+
     app.run()
-=======
+
     app.run(debug=True)
 
     
     
->>>>>>> e7a2263 (update website)
+
