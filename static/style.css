@@ -217,7 +217,7 @@ body::after {
 .github { background: #333; }
 .reddit { background: #ff4500; }
 .spotify { background: #1db954; }
-<<<<<<< HEAD
+
 
 /* Improve hover glow per platform */
 .btn {
@@ -233,9 +233,7 @@ body::after {
 
     transition: 0.3s;
 }
-}
-=======
->>>>>>> e7a2263 (update website)
+
 
 /* Improve hover glow per platform */
 .btn {
@@ -262,8 +260,9 @@ body::after {
 
     z-index: -2;  /* behind everything */
 
-    opacity: 0.15;   /* 👈 faint */
+    opacity: 0.5;   /* 👈 faint */
     filter: blur(6px); /* 👈 smooth look */
 
     object-fit: cover;
 }
+
