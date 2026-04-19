@@ -29,5 +29,13 @@ def comment():
 def discord_verify():
     return "dh=4118046e803b45e48f76fd838fe6b8bb8c9162ec", 200, {'Content-Type': 'text/plain'}
 
+# ================= RUN LOCAL =================
 if __name__ == "__main__":
+<<<<<<< HEAD
     app.run()
+=======
+    app.run(debug=True)
+
+    
+    
+>>>>>>> e7a2263 (update website)

@@ -217,6 +217,7 @@ body::after {
 .github { background: #333; }
 .reddit { background: #ff4500; }
 .spotify { background: #1db954; }
+<<<<<<< HEAD
 
 /* Improve hover glow per platform */
 .btn {
@@ -233,4 +234,36 @@ body::after {
     transition: 0.3s;
 }
 }
+=======
+>>>>>>> e7a2263 (update website)
 
+/* Improve hover glow per platform */
+.btn {
+    padding: 14px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+
+    font-size: 18px;        /* 🔥 bigger text */
+    font-weight: 700;       /* 🔥 bold */
+
+    letter-spacing: 0.5px;  /* smoother look */
+
+    transition: 0.3s;
+}
+/* 🎥 BACKGROUND VIDEO */
+#bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+
+    z-index: -2;  /* behind everything */
+
+    opacity: 0.15;   /* 👈 faint */
+    filter: blur(6px); /* 👈 smooth look */
+
+    object-fit: cover;
+}
