@@ -266,3 +266,40 @@ body::after {
     object-fit: cover;
 }
 
+
+#assistant {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    z-index: 999;
+}
+
+#assistant-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #00d4ff;
+}
+
+#assistant-box {
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 12px;
+    width: 250px;
+    color: white;
+    font-size: 14px;
+}
+
+#assistant-options button {
+    margin-top: 10px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #00d4ff;
+}
+
