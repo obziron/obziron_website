@@ -261,7 +261,7 @@ body::after {
     z-index: -2;  /* behind everything */
 
     opacity: 0.5;   /* 👈 faint */
-    filter: blur(6px); /* 👈 smooth look */
+    filter: none; /* 👈 smooth look */
 
     object-fit: cover;
 }
