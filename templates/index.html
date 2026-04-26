@@ -306,8 +306,126 @@ canvases.forEach(canvas => {
 
     </div>
 </div>
+<!-- ================= AI ASSISTANT ================= -->
+<style>
+#assistant {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 999;
+}
+
+#assistant-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00d4ff;
+}
+
+#assistant-box {
+    background: rgba(0,0,0,0.75);
+    padding: 15px;
+    border-radius: 12px;
+    width: 260px;
+    color: white;
+    font-size: 14px;
+    backdrop-filter: blur(6px);
+}
+
+#assistant-text {
+    margin-bottom: 10px;
+}
+
+#assistant-options button {
+    margin: 5px 5px 0 0;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #00d4ff;
+    color: black;
+    transition: 0.2s;
+}
+
+#assistant-options button:hover {
+    background: #00ffaa;
+}
+</style>
+
+<div id="assistant">
+    <img src="{{ url_for('static', filename='images/icon.png') }}" id="assistant-icon">
+
+    <div id="assistant-box">
+        <p id="assistant-text"></p>
+
+        <div id="assistant-options">
+            <button onclick="startIntro(true)">Yes 🔊</button>
+            <button onclick="startIntro(false)">Yes (No Voice)</button>
+            <button onclick="skipIntro()">Skip ❌</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const textElement = document.getElementById("assistant-text");
+
+const introText = "Do you wanna know about this website first?";
+let index = 0;
+
+function typeEffect(text) {
+    textElement.innerHTML = "";
+    index = 0;
+
+    function type() {
+        if (index < text.length) {
+            textElement.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, 25);
+        }
+    }
+    type();
+}
+
+// 🔊 Voice
+function speak(text) {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+}
+
+// 👉 Start intro
+function startIntro(withVoice) {
+    const msg = "This website showcases my Minecraft PvP gameplay, anime content, and live streams. You can explore my YouTube, Instagram, and Twitch sections for more.";
+
+    typeEffect(msg);
+
+    if (withVoice) {
+        speak(msg);
+    }
+}
+
+// 👉 Skip
+function skipIntro() {
+    document.getElementById("assistant").style.display = "none";
+}
+
+// 👉 On load (no voice)
+window.onload = () => {
+    typeEffect(introText);
+};
+</script>
+
 </body>
 </html>
+
+
+</body>
+</html>
+
 
 
 
