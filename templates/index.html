@@ -306,126 +306,252 @@ canvases.forEach(canvas => {
 
     </div>
 </div>
-<!-- ================= AI ASSISTANT ================= -->
-<style>
-#assistant {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    gap: 10px;
-    z-index: 999;
-}
 
-#assistant-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00d4ff;
-}
 
-#assistant-box {
-    background: rgba(0,0,0,0.75);
-    padding: 15px;
-    border-radius: 12px;
-    width: 260px;
-    color: white;
-    font-size: 14px;
-    backdrop-filter: blur(6px);
-}
+</body>
+</html>
 
-#assistant-text {
-    margin-bottom: 10px;
-}
+<!-- ================= MC ASSISTANT ================= -->
+<div id="mc-assistant">
+    <img src="/static/images/mc_char.png" id="mc-icon">
 
-#assistant-options button {
-    margin: 5px 5px 0 0;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background: #00d4ff;
-    color: black;
-    transition: 0.2s;
-}
+    <div id="mc-bubble">
+        <span id="mc-text"></span>
 
-#assistant-options button:hover {
-    background: #00ffaa;
-}
-</style>
-
-<div id="assistant">
-    <img src="{{ url_for('static', filename='images/icon.png') }}" id="assistant-icon">
-
-    <div id="assistant-box">
-        <p id="assistant-text"></p>
-
-        <div id="assistant-options">
-            <button onclick="startIntro(true)">Yes 🔊</button>
-            <button onclick="startIntro(false)">Yes (No Voice)</button>
-            <button onclick="skipIntro()">Skip ❌</button>
-        </div>
+        <div id="mc-options" style="display:none;"></div>
     </div>
 </div>
 
+<canvas id="blast-canvas"></canvas>
+
+//EXTRA
 <script>
-const textElement = document.getElementById("assistant-text");
+const textElement = document.getElementById("mc-text");
+const optionsBox = document.getElementById("mc-options");
 
-const introText = "Do you wanna know about this website first?";
-let index = 0;
+let withVoiceGlobal = false;
 
-function typeEffect(text) {
+const introText = "Hello, I am obziron and I am a content creator. I play Minecraft and watch anime. Would you like to know more?";
+
+// TYPE EFFECT
+function typeText(text, callback) {
     textElement.innerHTML = "";
-    index = 0;
+    let i = 0;
 
     function type() {
-        if (index < text.length) {
-            textElement.innerHTML += text.charAt(index);
-            index++;
+        if (i < text.length) {
+            textElement.innerHTML += text.charAt(i);
+            i++;
             setTimeout(type, 25);
+        } else {
+            if (callback) callback();
         }
     }
     type();
 }
 
-// 🔊 Voice
+// VOICE
 function speak(text) {
     const speech = new SpeechSynthesisUtterance(text);
-    speech.volume = 1;
     speech.rate = 1;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
 }
 
-// 👉 Start intro
+// SHOW FIRST OPTIONS
+function showInitialOptions() {
+    optionsBox.style.display = "flex";
+
+    optionsBox.innerHTML = `
+        <button onclick="startIntro(true)">Yes 🔊</button>
+        <button onclick="startIntro(false)">Yes</button>
+        <button onclick="skipIntro()">Skip ❌</button>
+    `;
+}
+
+// START INTRO
 function startIntro(withVoice) {
-    const msg = "This website showcases my Minecraft PvP gameplay, anime content, and live streams. You can explore my YouTube, Instagram, and Twitch sections for more.";
+    withVoiceGlobal = withVoice;
+    optionsBox.style.display = "none";
 
-    typeEffect(msg);
+    const msg = "This website is a collection of everything I enjoy creating and improving in. Most of it is centered around Minecraft PvP, including modes like UHC, Axe PvP, and more.\n\nI also share anime content like scenes and edits from shows I enjoy.\n\nSo what do you want to explore?";
 
-    if (withVoice) {
-        speak(msg);
+    typeText(msg, showMainOptions);
+
+    if (withVoice) speak(msg);
+}
+
+// SHOW MAIN OPTIONS
+function showMainOptions() {
+    optionsBox.style.display = "flex";
+
+    optionsBox.innerHTML = `
+        <button onclick="goMinecraft()">Minecraft ⚔️</button>
+        <button onclick="goAnime()">Anime 🎌</button>
+        <button onclick="skipIntro()">Skip ❌</button>
+    `;
+}
+
+// MINECRAFT PATH
+function goMinecraft() {
+    optionsBox.style.display = "none";
+
+    const msg = "My Minecraft content focuses on PvP gameplay, including intense fights, clutch moments, and improving mechanics over time.";
+
+    typeText(msg);
+    if (withVoiceGlobal) speak(msg);
+}
+
+// ANIME PATH
+function goAnime() {
+    optionsBox.style.display = "none";
+
+    const msg = "My anime content includes edits, clips, and scenes from shows like One Piece, Naruto, and more. It's mostly about visuals and moments I enjoy.";
+
+    typeText(msg);
+    if (withVoiceGlobal) speak(msg);
+}
+
+// SKIP
+function skipIntro() {
+    document.getElementById("mc-assistant").style.display = "none";
+}
+
+// LOAD
+window.onload = () => {
+    typeText(introText, showInitialOptions);
+};
+
+
+// ================= COLOR BLAST =================
+const canvas = document.getElementById("blast-canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function createBlast(x, y) {
+    for (let i = 0; i < 80; i++) {
+        particles.push({
+            x: x,
+            y: y,
+            size: Math.random() * 4 + 2,
+            speedX: (Math.random() - 0.5) * 6,
+            speedY: (Math.random() - 0.5) * 6,
+            color: `hsl(${Math.random()*360},100%,60%)`,
+            life: 60
+        });
     }
 }
 
-// 👉 Skip
-function skipIntro() {
-    document.getElementById("assistant").style.display = "none";
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, i) => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+    });
+
+    requestAnimationFrame(animate);
 }
 
-// 👉 On load (no voice)
-window.onload = () => {
-    typeEffect(introText);
-};
+animate();
+
+// CLICK → BLAST
+document.getElementById("mc-icon").addEventListener("click", (e) => {
+    createBlast(e.clientX, e.clientY);
+});
 </script>
 
+<script>
+// ================= CLICK DETECTOR =================
+let clickTimes = [];
+
+document.addEventListener("click", (e) => {
+    const now = Date.now();
+    clickTimes.push(now);
+
+    // keep only last 1 sec
+    clickTimes = clickTimes.filter(t => now - t < 1000);
+
+    if (clickTimes.length >= 3) {
+        triggerChaos(e.clientX, e.clientY);
+        clickTimes = [];
+    }
+});
+
+
+// ================= CHAOS EFFECT =================
+function triggerChaos(x, y) {
+
+    // ⚡ LIGHTNING FLASH
+    const lightning = document.getElementById("lightning");
+    lightning.classList.add("flash-glow");
+
+    setTimeout(() => {
+        lightning.classList.remove("flash-glow");
+    }, 400);
+
+
+    // 💥 SCREEN SHAKE
+    document.body.classList.add("shake");
+    setTimeout(() => {
+        document.body.classList.remove("shake");
+    }, 800);
+
+
+    // ❄️ SHARDS
+    for (let i = 0; i < 40; i++) {
+        createGlass();
+    }
+}
+
+// ================= GLASS =================
+function createGlass() {
+    const piece = document.createElement("div");
+    piece.classList.add("glass-piece");
+
+    piece.style.left = Math.random() * window.innerWidth + "px";
+    piece.style.top = "-20px";
+
+    const fallSpeed = Math.random() * 3 + 2;
+    const rotate = Math.random() * 360;
+
+    document.body.appendChild(piece);
+
+    let y = 0;
+
+    function fall() {
+        y += fallSpeed;
+        piece.style.top = y + "px";
+        piece.style.transform = `rotate(${rotate + y}deg)`;
+
+        if (y < window.innerHeight) {
+            requestAnimationFrame(fall);
+        } else {
+            piece.remove();
+        }
+    }
+
+    fall();
+}
+</script>
+
+
+<!-- LIGHTNING OVERLAY -->
+<div id="lightning"></div>
+
 </body>
 </html>
-
-
-</body>
-</html>
-
-
 
 
